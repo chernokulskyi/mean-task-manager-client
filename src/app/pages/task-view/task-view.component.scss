@@ -1,0 +1,177 @@
+@import '../../../styles';
+
+.task-manager-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  max-width: 1000px;
+  max-height: 680px;
+}
+
+.title {
+  font-family: 'Lato', sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  background: $color-white;
+  padding: 42px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.list-menu {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  flex-grow: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+    color: $color-gray;
+
+    &:hover {
+      background: $color-lightgray;
+    }
+
+    &.is-active {
+      background: $color-lightgreen-bg;
+      color: $color-darkgreen;
+    }
+  }
+}
+
+.new-list {
+  margin-top: 42px;
+}
+
+.task-list-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 42px 32px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+
+  .top-bar {
+    display: flex;
+    margin-bottom: 15px;
+
+    .title {
+      flex-grow: 1;
+      padding: 0 10px 5px;
+      margin: 0;
+    }
+  }
+
+  .dropdown {
+    margin-right: 10px;
+
+    &:hover {
+      .icon {
+        transform: rotateZ(180deg);
+        transition: transform 1s ease;
+      }
+    }
+  }
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: $color-white;
+  padding: 15px 20px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+
+  &:first-child {
+    margin-top: 5px;
+  }
+
+  &:last-child {
+    margin-bottom: 5px;
+  }
+
+  &:not(.complete) {
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+
+    &:active {
+      transform: scale(0.96);
+    }
+
+    &:hover {
+      box-shadow: 0 0 0 5px $color-lightgray;
+
+      .task-buttons {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  }
+
+  &.completed .task-text {
+    text-decoration: line-through;
+    opacity: 0.5;
+  }
+
+  .edit-button {
+    margin-right: 10px;
+  }
+
+  .task-text {
+    flex-grow: 1;
+  }
+
+  .task-buttons {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+.circle-add-button {
+  position: absolute;
+  bottom: 42px;
+  right: 42px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.empty-state-text {
+  font-size: 18px;
+  color: $color-gray;
+  text-align: center;
+}
