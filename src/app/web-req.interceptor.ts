@@ -34,16 +34,20 @@ export class WebReqInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
 
         if (error.status === 401) {
-          return this.refreshAuthToken().pipe(
-            switchMap(() => {
-              req = this.addAuthHeader(req);
-              return next.handle(req);
-            }),
-            catchError((err: any) => {
-              this.authService.logout();
-              return empty();
-            })
-          );
+          if (!localStorage.getItem('user-id')) {
+            this.authService.logout();
+          } else {
+            return this.refreshAuthToken().pipe(
+              switchMap(() => {
+                req = this.addAuthHeader(req);
+                return next.handle(req);
+              }),
+              catchError((err: any) => {
+                this.authService.logout();
+                return empty();
+              })
+            );
+          }
         }
         return throwError(error);
       })
